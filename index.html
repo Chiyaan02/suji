@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <style>
@@ -20,6 +20,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
       }
       #start-btn {
         padding: 15px 30px;
@@ -38,7 +39,7 @@
       <button id="start-btn">Start AR Experience</button>
     </div>
 
-    <!-- Rotation & Damping parameters -->
+    <!-- MindAR Scene Setup -->
     <a-scene 
       mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; filterMinCF: 0.0001; filterBeta: 0.001;" 
       color-space="sRGB" 
@@ -52,15 +53,10 @@
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
+      <!-- Target Index 0: Keytag Image -->
       <a-entity mindar-image-target="targetIndex: 0">
-        <!-- Rotation axis adjusted to prevent tilting/slanting -->
-        <a-video 
-          src="#myVideo" 
-          width="1" 
-          height="1.77" 
-          position="0 0 0" 
-          rotation="0 0 0">
-        </a-video>
+        <!-- rotation-ஐ சரியாக கீடெக் மீது அமர வைக்கும்படி -90 கொடுத்துள்ளது -->
+        <a-video src="#myVideo" width="1" height="1.77" position="0 0 0" rotation="-90 0 0"></a-video>
       </a-entity>
 
     </a-scene>
