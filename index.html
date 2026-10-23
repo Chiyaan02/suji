@@ -1,98 +1,35 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <style>
-      body {
-        margin: 0;
-        overflow: hidden;
-      }
-      #start-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.85);
-        z-index: 99999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      #start-btn {
-        padding: 15px 30px;
-        font-size: 18px;
-        font-weight: bold;
-        color: #fff;
-        background-color: #008cba;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-      }
-    </style>
   </head>
   <body>
-    <div id="start-container">
-      <button id="start-btn">Start AR Experience</button>
-    </div>
-
-    <!-- Smooth tracking filters included -->
-    <a-scene 
-      mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; filterMinCF: 0.0001; filterBeta: 0.001;" 
-      color-space="sRGB" 
-      renderer="colorManagement: true, physicallyCorrectLights" 
-      vr-mode-ui="enabled: false" 
-      device-orientation-permission-ui="enabled: false">
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       
       <a-assets>
-        <video id="myVideo" src="suji.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline></video>
+        <video id="myVideo" src="my-video.mp4" preload="auto" loop="true" crossorigin="anonymous"></video>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <!-- Parent Target Entity -->
       <a-entity mindar-image-target="targetIndex: 0">
-        <!-- 3D Skew/Tilt Fix Container -->
-        <a-entity position="0 0 0" rotation="0 0 0">
-          <a-video 
-            src="#myVideo" 
-            width="1" 
-            height="1.77" 
-            position="0 0 0" 
-            rotation="0 0 0">
-          </a-video>
-        </a-entity>
+        <a-video src="#myVideo" width="2.5" height="2.2" position="0 0 0" rotation="0 0 0"></a-video>
       </a-entity>
-
     </a-scene>
 
     <script>
+      // Photo-vai kandupiditha udan video play aga script
       const sceneEl = document.querySelector('a-scene');
       const video = document.querySelector('#myVideo');
-      const startBtn = document.querySelector('#start-btn');
-      const startContainer = document.querySelector('#start-container');
-
-      startBtn.addEventListener('click', () => {
-        startContainer.style.display = 'none';
-
-        video.play().then(() => {
-          video.pause();
-          video.currentTime = 0;
-        }).catch(err => console.log("Video prep error:", err));
-
-        const arSystem = sceneEl.systems["mindar-image-system"];
-        if (arSystem) {
-          arSystem.start();
-        }
-      });
-
-      sceneEl.addEventListener("targetFound", () => {
+      
+      sceneEl.addEventListener("targetFound", event => {
+        console.log("Target found");
         video.play();
       });
 
-      sceneEl.addEventListener("targetLost", () => {
+      sceneEl.addEventListener("targetLost", event => {
+        console.log("Target lost");
         video.pause();
       });
     </script>
