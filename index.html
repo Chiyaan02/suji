@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
   </head>
   <body>
-    <!-- Stable Smoothing Parameters Added -->
+    <!-- Stable Tracking Parameters -->
     <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF: 0.001; filterBeta: 0.01;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       
       <a-assets>
@@ -18,7 +18,7 @@
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <!-- Ungal image-in ratio-vukku etraadi width/height-ai maatrikollungal (e.g., 1:1.77) -->
+        <!-- Sarynjurukra prachanaiku rotation-ai '0 0 0' enru fix seithu, width/height-ai target image-ku erppa adjust seyyungal -->
         <a-video src="#myVideo" width="1" height="1.77" position="0 0 0" rotation="0 0 0"></a-video>
       </a-entity>
 
