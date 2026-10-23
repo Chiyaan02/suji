@@ -8,7 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
   </head>
   <body>
-    <a-scene mindar-image="imageTargetSrc: ./targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <!-- Smoothing Parameters Added Below -->
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF: 0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       
       <a-assets>
         <video id="myVideo" src="suji.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline></video>
@@ -17,14 +18,12 @@
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <!-- 5cm x 7cm size (0.05m x 0.07m) -->
         <a-video src="#myVideo" width="1" height="2" position="0 0 0" rotation="0 0 0"></a-video>
       </a-entity>
 
     </a-scene>
 
     <script>
-      // Target Found / Lost Handler for Video Auto Play/Pause
       const sceneEl = document.querySelector('a-scene');
       const video = document.querySelector('#myVideo');
       
